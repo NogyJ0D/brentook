@@ -1,0 +1,56 @@
+<%- include('layouts/navbar.ejs', { user: user }) %>
+
+  <main class="p-4 grid grid-cols-2 w-full gap-8">
+
+    <!-- TODO: modalizar el create y update -->
+
+    <div class="bg-white bg-opacity-50 px-2 py-1 text-xl rounded-xl border-2 border-black">
+      <h3 class="font-bold">En alquiler:</h3>
+      <div class="grid grid-cols-2 gap-4 w-fit">
+        <% if (ownedBooks.length> 0) { %>
+          <% ownedBooks.forEach(book=> { %>
+            <div class="border-2 border-black bg-white w-64">
+              <img src="<%= book.cover_image %>" alt="<%= book.title %>" class="mx-auto h-96 object-cover">
+              <div class="px-4">
+                <p><b>Título</b>: <%= book.title %>
+                </p>
+                <p><b>Autor</b>: <%= book.author %>
+                </p>
+                <p><b>Publicación</b>: <%= book.year %>
+                </p>
+                <p><b>Editorial</b>: <%= book.publisher %>
+                </p>
+                <p><b>Precio</b>: $<%= book.price %>
+                </p>
+                <p><b>Duración</b>: <%= book.period %>
+                </p>
+                <% if (book.category) { %>
+                  <p><b>Categoría</b>: <%= book.category %>
+                  </p>
+                  <% } %>
+                    <% if (book.consumer_username) { %>
+                      <p><b>Alquilado a</b>: <%= book.consumer_username %>
+                      </p>
+                      <% } %>
+              </div>
+            </div>
+            <% }) %>
+              <% } else { %>
+                <h3>No tienes libros en alquiler.</h3>
+                <% } %>
+      </div>
+    </div>
+    <div class="bg-white bg-opacity-50 px-2 py-1 text-xl rounded-xl border-2 border-black">
+      <h3 class="font-bold">Alquilados:</h3>
+      <% if (rentedBooks.length> 0) { %>
+
+        <% } else { %>
+          <h3>No tienes libros alquilados.</h3>
+          <% } %>
+    </div>
+    <!-- </div> -->
+  </main>
+
+  </body>
+
+  </html>

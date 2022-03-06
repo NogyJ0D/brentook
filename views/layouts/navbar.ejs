@@ -1,0 +1,20 @@
+<%- include('head.ejs') %>
+
+  <header class="bg-red-500 text-white w-52 px-4 py-2">
+    <nav class="text-center flex flex-col gap-2 font-bold items-center text-xl">
+      <h1>brentook</h1>
+      <img class="w-32" src="<%=user.profile_pic %>">
+      <h3>
+        <%= user.username %>
+      </h3>
+
+      <hr class="border-2 border-white w-full">
+
+      <ul>
+        <li><a href="/user/<%= user.username %>">Mi perfil</a></li>
+        <li><a href="/user/<%= user.username %>/books">Mis libros</a></li>
+        <li><a href="/user/<%= user.username %>/search">Buscar libros</a></li>
+        <li><a href="/">Salir</a></li>
+      </ul>
+    </nav>
+  </header>

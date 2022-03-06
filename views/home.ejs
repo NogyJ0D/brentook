@@ -1,0 +1,91 @@
+<%- include('layouts/head.ejs'); %>
+
+  <main class="w-full flex flex-col py-8 gap-12">
+
+    <div class="text-center">
+      <h2 class="text-8xl font-black text-red-600">brentook</h2>
+      <h4 class="text-2xl font-semibold text-red-500 text-opacity-80">Tu solución para seguir leyendo</h4>
+    </div>
+
+    <div class="px-8 flex gap-4 text-center">
+
+      <div class="flex flex-col gap-4">
+
+        <div class="group flex border-2 w-max border-black p-6 rounded-xl bg-white bg-opacity-50">
+          <div>
+            <img src="/svg/login.svg" class="group-hover:hidden block">
+            <img src="/svg/openlogin.svg" class="group-hover:block hidden">
+            <h4 class="text-xl font-semibold pt-4">Inicia sesión</h4>
+          </div>
+
+          <form id="loginForm" class="px-6 flex flex-col items-center gap-4">
+            <input class="px-2 py-1 rounded border border-black outline-none" type="email" placeholder="Email"
+              name="email" required>
+            <input class="px-2 py-1 rounded border border-black outline-none" type="password" placeholder="Contraseña"
+              name="password" required>
+            <button
+              class="rounded-xl border-2 border-black bg-red-500 bg-opacity-50 text-xl font-bold px-2 cursor-pointer">Iniciar</button>
+          </form>
+        </div>
+
+        <div class="group flex border-2 w-max border-black p-6 rounded-xl bg-white bg-opacity-50">
+          <div>
+            <img src="/svg/signup.svg" class="group-hover:hidden block">
+            <img src="/svg/opensignup.svg" class="group-hover:block hidden">
+            <h4 class="text-xl font-semibold pt-4">Regístrate</h4>
+          </div>
+
+          <form id="signupForm" class="px-6 flex flex-col items-center gap-4">
+            <input class="px-2 py-1 rounded border border-black outline-none" type="text" placeholder="Nombre"
+              name="firstname" required>
+            <input class="px-2 py-1 rounded border border-black outline-none" type="text" placeholder="Apellido"
+              name="lastname" required>
+            <input class="px-2 py-1 rounded border border-black outline-none" type="text"
+              placeholder="Nombre de usuario" name="username" required>
+            <input class="px-2 py-1 rounded border border-black outline-none" type="email" placeholder="Email"
+              name="email" required>
+            <input class="px-2 py-1 rounded border border-black outline-none" type="password" placeholder="Contraseña"
+              name="password" required>
+            <input class="px-2 py-1 rounded border border-black outline-none" type="text" placeholder="Celular"
+              name="cellphone">
+            <input class="px-2 py-1 rounded border border-black outline-none" type="text" placeholder="Foto de perfil"
+              name="profile_pic">
+            <input class="px-2 py-1 rounded border border-black outline-none" type="date"
+              placeholder="Fecha de nacimiento" name="birthday" required>
+            <button
+              class="rounded-xl border-2 border-black bg-red-500 bg-opacity-50 text-xl font-bold px-2 cursor-pointer">Registrar</button>
+          </form>
+        </div>
+
+      </div>
+
+      <div id="booksDisplay" class="w-full border-2 border-black p-6 rounded-xl bg-white bg-opacity-50">
+        <h4 class="text-xl font-semibold border-b-2 border-black h-min">Alquila los libros que ya no lees, o
+          elige
+          uno de alguien mas</h4>
+        <div class="grid grid-cols-4 mt-2 h-max gap-2">
+          <% books.forEach(book=> { %>
+            <div class="border-2 border-black bg-white w-48">
+              <img src="<%= book.cover_image %>" alt="<%= book.title %>" class="mx-auto h-72">
+              <div class="px-4">
+                <p><b>Título</b>: <%= book.title %>
+                </p>
+                <p><b>Autor</b>: <%= book.author %>
+                </p>
+                <p><b>Publicación</b>: <%= book.year %>
+                </p>
+                <p><b>Editorial</b>: <%= book.publisher %>
+                </p>
+                <p><b>Dueño</b>: <%= book.owner_username %>
+                </p>
+              </div>
+            </div>
+            <% }) %>
+        </div>
+
+  </main>
+
+  <script src="/js/home.js"></script>
+  </body>
+
+  </html>

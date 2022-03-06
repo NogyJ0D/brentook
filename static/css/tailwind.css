@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input {
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  border: 1px solid black;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+label {
+  text-decoration: underline;
+}
