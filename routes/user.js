@@ -27,6 +27,13 @@ const user = app => {
       : res.redirect('/')
   })
 
+  router.get('/:username/search', async (req, res) => {
+    const user = await userController.getByUsername(req.params.username)
+    const books = await bookController.getAll()
+
+    return res.render('search', { user: user[0], books: books })
+  })
+
   router.put('/:username', async (req, res) => {
     const user = req.body
     if (user.username !== req.params.username) return res.status(400).json({ fail: true, err: "You can't change your username." })

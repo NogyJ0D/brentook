@@ -23,7 +23,7 @@ app.set('views', 'views')
 const viewsRoutes = require('./routes/views')
 const authRoutes = require('./routes/auth')
 const userRoutes = require('./routes/user')
-const bookRoutes = require('./routes/book')
+const bookRoutes = require('./routes/books')
 
 // Middlewares
 app.use(express.static(path.join(__dirname, '/static')))

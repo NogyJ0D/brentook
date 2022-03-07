@@ -48,4 +48,20 @@ const update = async (table, data, id) => {
   }
 }
 
-module.exports = { query, insert, del, update }
+const updateBook = async (data, ownerUsername, id) => {
+  try {
+    return await query(`UPDATE books SET ? WHERE id = ${id} AND owner_username = "${ownerUsername}"`, [data])
+  } catch (err) {
+    return { fail: true, err }
+  }
+}
+
+const delBook = async (ownerUsername, id) => {
+  try {
+    return await query(`DELETE FROM books WHERE id = ${id} AND owner_username = "${ownerUsername}"`)
+  } catch (err) {
+    return { fail: true, err }
+  }
+}
+
+module.exports = { query, insert, del, update, updateBook, delBook }

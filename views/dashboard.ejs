@@ -1,81 +1,81 @@
 <%- include('layouts/navbar.ejs', { user: user }) %>
 
-  <main class="p-4 grid grid-cols-2 w-full gap-8 border-2 border-black">
+<main class="p-4 grid grid-cols-2 w-full gap-8">
 
-    <div class="bg-white bg-opacity-50 px-2 py-1 text-xl rounded-xl border-2 border-black">
+  <div class="bg-white bg-opacity-50 px-2 py-1 text-xl rounded-xl border-2 border-black">
 
-      <h3 class="font-bold">Mi perfil:</h3>
-      <form class="px-6 flex flex-col gap-2" id="updateForm">
+    <h3 class="font-bold">Mi perfil:</h3>
+    <form class="px-6 flex flex-col gap-2" id="updateForm">
 
-        <label for="username">Usuario</label>
-        <input class="cursor-default" type="text" value="<%= user.username %>" id="username" name="username" readonly>
+      <label for="username">Usuario</label>
+      <input class="cursor-default" type="text" value="<%= user.username %>" id="username" name="username" readonly>
 
-        <label for="email">Email</label>
-        <input class="cursor-default" type="email" value="<%= user.email %>" id="email" readonly>
+      <label for="email">Email</label>
+      <input class="cursor-default" type="email" value="<%= user.email %>" id="email" readonly>
 
-        <label for="firstname">Nombre</label>
-        <input class="cursor-default" type="text" value="<%= user.firstname %>" id="firstname" readonly>
+      <label for="firstname">Nombre</label>
+      <input class="cursor-default" type="text" value="<%= user.firstname %>" id="firstname" readonly>
 
-        <label for="lastname">Apellido</label>
-        <input class="cursor-default" type="text" value="<%= user.lastname %>" id="lastname" readonly>
+      <label for="lastname">Apellido</label>
+      <input class="cursor-default" type="text" value="<%= user.lastname %>" id="lastname" readonly>
 
-        <label for="cellphone">Celular <small>(modificable)</small></label>
-        <input type="text" value="<%= user.cellphone ? user.cellphone : '' %>" id="cellphone" placeholder="Celular"
-          name="cellphone">
+      <label for="cellphone">Celular <small>(modificable)</small></label>
+      <input type="text" value="<%= user.cellphone ? user.cellphone : '' %>" id="cellphone" placeholder="Celular"
+        name="cellphone">
 
-        <label for="profile_pic">Imagen de perfil (url) <small>(modificable)</small></label>
-        <input type="text" value="<%= user.profile_pic %>" id="profile_pic" placeholder="Imagen de perfil (url)"
-          name="profile_pic">
+      <label for="profile_pic">Imagen de perfil (url) <small>(modificable)</small></label>
+      <input type="text" value="<%= user.profile_pic %>" id="profile_pic" placeholder="Imagen de perfil (url)"
+        name="profile_pic">
 
-        <input type="hidden" value="<%= user.id %>" name="id">
+      <input type="hidden" value="<%= user.id %>" name="id">
 
-        <button
-          class="rounded-xl border-2 border-black bg-red-500 bg-opacity-50 text-xl font-bold px-2 cursor-pointer">Actualizar</button>
+      <button
+        class="rounded-xl border-2 border-black bg-red-500 bg-opacity-50 text-xl font-bold px-2 cursor-pointer">Actualizar</button>
 
-      </form>
-    </div>
+    </form>
+  </div>
 
-    <div class="bg-white bg-opacity-50 px-2 py-1 text-xl rounded-xl border-2 border-black">
+  <div class="bg-white bg-opacity-50 px-2 py-1 text-xl rounded-xl border-2 border-black">
 
-      <h3 class="font-bold">Ofrecer nuevo libro:</h3>
-      <form class="px-6 flex flex-col gap-2" id="newBookForm">
+    <h3 class="font-bold">Ofrecer nuevo libro:</h3>
+    <form class="px-6 flex flex-col gap-2" id="newBookForm">
 
-        <label for="title">Título*</label>
-        <input type="text" placeholder="Título" name="title" id="title" required>
+      <label for="title">Título*</label>
+      <input type="text" placeholder="Título" name="title" id="title" required>
 
-        <label for="author">Autor*</label>
-        <input type="text" placeholder="Autor" name="author" id="author" required>
+      <label for="author">Autor*</label>
+      <input type="text" placeholder="Autor" name="author" id="author" required>
 
-        <label for="year">Fecha de publicación*</label>
-        <input type="text" placeholder="Publicación" name="year" id="year" required>
+      <label for="year">Fecha de publicación*</label>
+      <input type="text" placeholder="Publicación" name="year" id="year" required>
 
-        <label for="publisher">Editorial*</label>
-        <input type="text" placeholder="Editorial" name="publisher" id="publisher" required>
+      <label for="publisher">Editorial*</label>
+      <input type="text" placeholder="Editorial" name="publisher" id="publisher" required>
 
-        <label for="price">Precio de alquiler ($)*</label>
-        <input type="number" min="0" placeholder="Precio de alquiler ($)" name="price" id="price" required>
+      <label for="price">Precio de alquiler ($)*</label>
+      <input type="number" min="0" placeholder="Precio de alquiler ($)" name="price" id="price" required>
 
-        <label for="period">Duración del alquiler*</label>
-        <input type="text" placeholder="Duración del alquiler" name="period" id="period" required>
+      <label for="period">Duración del alquiler*</label>
+      <input type="text" placeholder="Duración del alquiler" name="period" id="period" required>
 
-        <label for="category">Categoría</label>
-        <input type="text" placeholder="Categoría" name="category" id="category">
+      <label for="category">Categoría</label>
+      <input type="text" placeholder="Categoría" name="category" id="category">
 
-        <label for="cover_image">Imagen de portada (url)</label>
-        <input type="text" placeholder="Imagen de portada (url)" name="cover_image" id="cover_image">
+      <label for="cover_image">Imagen de portada (url)</label>
+      <input type="text" placeholder="Imagen de portada (url)" name="cover_image" id="cover_image">
 
-        <input type="hidden" name="owner_username" value="<%= user.username %>">
-        <button
-          class="rounded-xl border-2 border-black bg-red-500 bg-opacity-50 text-xl font-bold px-2 cursor-pointer">Agregar</button>
+      <input type="hidden" name="owner_username" value="<%= user.username %>">
+      <button
+        class="rounded-xl border-2 border-black bg-red-500 bg-opacity-50 text-xl font-bold px-2 cursor-pointer">Agregar</button>
 
-        <small>* requerido</small>
-      </form>
-    </div>
+      <small>* requerido</small>
+    </form>
+  </div>
 
-  </main>
+</main>
 
 
-  <script src="/js/dashboard.js"></script>
-  </body>
+<script src="/js/dashboard.js"></script>
+</body>
 
-  </html>
+</html>

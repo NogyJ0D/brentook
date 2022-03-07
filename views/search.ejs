@@ -1,7 +1,44 @@
 <%- include('layouts/navbar.ejs', { user: user }) %>
 
-  <p>Buscar libros</p>
+<main class="p-4 w-full gap-8">
 
-  </body>
+  <div class="bg-white bg-opacity-50 px-2 py-1 text-xl rounded-xl border-2 border-black">
 
-  </html>
+    <h3 class="font-bold">Todos los libros:</h3>
+
+    <div class="grid grid-cols-4 gap-3">
+      <% if (books.length> 0) { %>
+      <% books.forEach(book=> { %>
+
+      <div class="border-2 border-black bg-white w-64">
+        <img src="<%= book.cover_image %>" alt="<%= book.title %>" class="h-96 w-full">
+        <div class="px-4">
+          <p><b>Título</b>: <%= book.title %></p>
+          <p><b>Autor</b>: <%= book.author %></p>
+          <p><b>Publicación</b>: <%= book.year %></p>
+          <p><b>Editorial</b>: <%= book.publisher %></p>
+          <p><b>Precio</b>: $<%= book.price %></p>
+          <p><b>Duración</b>: <%= book.period %></p>
+          <p><b>Agregado: </b> <%= book.created_date %></p>
+          <% if (book.category) { %>
+          <p><b>Categoría</b>: <%= book.category %></p>
+          <% } %>
+          <p><b>Pertenece a</b>: <%= book.owner_username %></p>
+          <% if (book.consumer_username) { %>
+          <p><b>Alquilado a</b>: <%= book.consumer_username %></p>
+          <% } if (book.owner_username !== user.username || book.consumer_username) { %>
+          <button class="w-max text-center border-2 border-black rounded-xl mb-2 px-2">Alquilar</button>
+          <% } %>
+        </div>
+        <!-- TODO: funcionalidad al boton para alquilar -->
+      </div>
+      <% })} %>
+    </div>
+
+  </div>
+
+</main>
+
+</body>
+
+</html>
