@@ -56,9 +56,9 @@ const updateBook = async (data, ownerUsername, id) => {
   }
 }
 
-const delBook = async (ownerUsername, id) => {
+const delBook = async (id) => {
   try {
-    return await query(`DELETE FROM books WHERE id = ${id} AND owner_username = "${ownerUsername}"`)
+    return await query(`DELETE FROM books WHERE id = ${id}`)
   } catch (err) {
     return { fail: true, err }
   }

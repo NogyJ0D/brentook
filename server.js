@@ -1,19 +1,10 @@
 const express = require('express')
-// const { engine, create } = require('express-handlebars')
 const path = require('path')
-const { port } = require('./config')
+const session = require('express-session')
+const methodOverride = require('method-override')
+const { port, sessionSecret } = require('./config')
 
 const app = express()
-
-// HandleBars setting
-// const hbs = create({
-//   defaultLayout: null,
-//   extname: 'hbs'
-// })
-
-// app.engine('hbs', engine(hbs))
-// app.set('view engine', 'hbs')
-// app.set('views', 'views')
 
 // EJS setting
 app.set('view engine', 'ejs')
@@ -22,7 +13,7 @@ app.set('views', 'views')
 // Routes
 const viewsRoutes = require('./routes/views')
 const authRoutes = require('./routes/auth')
-const userRoutes = require('./routes/user')
+const dashboardRoutes = require('./routes/dashboard')
 const bookRoutes = require('./routes/books')
 
 // Middlewares
@@ -30,19 +21,22 @@ app.use(express.static(path.join(__dirname, '/static')))
 app.use(express.json())
 app.use(express.text())
 app.use(express.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
+app.use(session({
+  secret: sessionSecret,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 24 * 60 * 60 * 1000
+  }
+}))
 
 app.use(viewsRoutes)
 authRoutes(app)
-userRoutes(app)
+dashboardRoutes(app)
 bookRoutes(app)
 
 // Start
 app.listen(port, () => {
   console.log(`Nodemon Starting\nRunning in port ${port}`)
 })
-
-// app.get('/', (req, res) => {
-//   res.render('home')
-// })
-
-// TODO: update y delete de mis libros

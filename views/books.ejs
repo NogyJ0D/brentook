@@ -3,52 +3,73 @@
 <main id="main" class="p-4 grid grid-cols-2 w-full gap-8">
 
   <div class="bg-white bg-opacity-50 px-2 py-1 text-xl rounded-xl border-2 border-black">
-    <h3 class="font-bold">En alquiler:</h3>
+    <h3 class="font-bold">En alquiler <small>(un libro alquilado no puede editarse)</small>:</h3>
+    <% if (ownedBooks.length> 0) { %>
     <div class="grid grid-cols-2 gap-4 w-fit">
-      <% if (ownedBooks.length> 0) { %>
       <% ownedBooks.forEach(book=> { %>
-      <div class="border-2 border-black bg-white w-64">
-        <img src="<%= book.cover_image %>" alt="<%= book.title %>" class="h-96 w-full">
-        <div class="px-4">
+      <div class="flex flex-col border-2 border-black bg-white w-64">
+        <img src="<%= book.cover_image %>" alt="<%= book.title %>" class="h-96">
+        <div class="px-4 flex flex-col pb-2 gap-1">
           <p><b>Título</b>: <%= book.title %></p>
           <p><b>Autor</b>: <%= book.author %></p>
           <p><b>Publicación</b>: <%= book.year %></p>
           <p><b>Editorial</b>: <%= book.publisher %></p>
           <p><b>Precio</b>: $<%= book.price %></p>
           <p><b>Duración</b>: <%= book.period %></p>
+          <p><b>Agregado: </b> <%= book.created_date %></p>
           <% if (book.category) { %>
           <p><b>Categoría</b>: <%= book.category %></p>
           <% } %>
           <% if (book.consumer_username) { %>
           <p><b>Alquilado a</b>: <%= book.consumer_username %></p>
-          <% } %>
-          <p><b>Agregado: </b> <%= book.created_date %></p>
-          <div id="<%= book.id %>">
-            <button onclick="editBook(<%= book.id %>)"
-              class="w-max text-center border-2 border-black rounded-xl mb-2 px-2">Editar</button>
-            <button onclick="removeBook(<%= book.id %>, '<%= book.owner_username %>')"
-              class="w-max text-center border-2 border-black rounded-xl mb-2 px-2">Eliminar</button>
-          </div>
+          <p><b>Alquilado</b>: <%= book.rented_date %></p>
         </div>
+        <% } else { %>
       </div>
-      <% }) %>
-      <% } else { %>
-      <h3>No tienes libros en alquiler.</h3>
+      <a href="/dashboard/update/<%= book.id %>" class="mt-auto m-1 text-center border-2 border-black bg-red-500 rounded-xl">Editar/Eliminar</a>
       <% } %>
     </div>
+    <% }) %>
+    <% } else { %>
+    <h3>No tienes libros en alquiler.</h3>
+    <% } %>
   </div>
+  </div>
+
   <div class="bg-white bg-opacity-50 px-2 py-1 text-xl rounded-xl border-2 border-black">
     <h3 class="font-bold">Alquilados:</h3>
     <% if (rentedBooks.length> 0) { %>
-
+    <div class="grid grid-cols-2 gap-4 w-fit">
+      <% rentedBooks.forEach(book=> { %>
+      <div class="flex flex-col border-2 border-black bg-white w-64">
+        <img src="<%= book.cover_image %>" alt="<%= book.title %>" class="h-96">
+        <div class="px-4 flex flex-col pb-2 gap-1">
+          <p><b>Título</b>: <%= book.title %></p>
+          <p><b>Autor</b>: <%= book.author %></p>
+          <p><b>Publicación</b>: <%= book.year %></p>
+          <p><b>Editorial</b>: <%= book.publisher %></p>
+          <p><b>Precio</b>: $<%= book.price %></p>
+          <p><b>Duración</b>: <%= book.period %></p>
+          <p><b>Agregado: </b> <%= book.created_date %></p>
+          <% if (book.category) { %>
+          <p><b>Categoría</b>: <%= book.category %></p>
+          <% } %>
+          <p><b>Dueño</b>: <%= book.consumer_username %></p>
+          <p><b>Alquilado</b>: <%= book.rented_date %></p>
+        </div>
+        <form action="/books/return/<%= book.id %>?_method=PUT" method="POST" class="mt-auto m-1 text-center border-2 border-black bg-green-500 rounded-xl">
+          <button>Devolver</button>
+        </form>
+      </div>
+      <% }) %>
+    </div>
     <% } else { %>
     <h3>No tienes libros alquilados.</h3>
     <% } %>
   </div>
-  <!-- </div> -->
+
 </main>
 
-<script src="/js/books.js"></script>
 </body>
 
 </html>

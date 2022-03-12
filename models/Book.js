@@ -1,4 +1,7 @@
 const { query, insert, updateBook, delBook } = require('../config/database')
+const { format, register } = require('timeago.js')
+const esAR = require('../helpers/es-AR')
+register('es-AR', esAR)
 
 class Book {
   constructor (book) {
@@ -17,35 +20,100 @@ class Book {
   }
 
   static async readAll () {
-    return await query('SELECT * FROM books')
+    const books = await query('SELECT * FROM books')
+    books.forEach(book => {
+      book.created_date = format(book.created_date, 'es-AR')
+    })
+    return books
   }
 
-  static async readLast10 () {
-    return await query('SELECT * FROM books ORDER BY created_date DESC LIMIT 10')
+  static async readLast12 () {
+    const books = await query('SELECT * FROM books ORDER BY created_date DESC LIMIT 12')
+    books.forEach(book => {
+      book.created_date = format(book.created_date, 'es-AR')
+    })
+    return books
   }
 
   static async readById (id) {
-    return await query(`SELECT * FROM books WHERE id = "${id}"`)
+    return await query(`
+      SELECT * 
+      FROM books 
+      WHERE id = "${id}"
+    `)
   }
 
   static async readByOwner (owner) {
-    return await query(`SELECT * FROM books WHERE owner_username = "${owner}" ORDER BY title`)
+    const books = await query(`
+      SELECT * 
+      FROM books 
+      WHERE owner_username = "${owner}" 
+      ORDER BY title
+    `)
+    books.forEach(book => {
+      book.created_date = format(book.created_date, 'es-AR')
+    })
+    books.forEach(book => {
+      book.rented_date = format(book.rented_date, 'es-AR')
+    })
+    return books
   }
 
   static async readByConsumer (consumer) {
-    return await query(`SELECT * FROM books WHERE consumer_username = "${consumer}" ORDER BY title`)
+    const books = await query(`
+      SELECT *
+      FROM books
+      WHERE consumer_username = "${consumer}"
+      ORDER BY title
+    `)
+    books.forEach(book => {
+      book.created_date = format(book.created_date, 'es-AR')
+    })
+    books.forEach(book => {
+      book.rented_date = format(book.rented_date, 'es-AR')
+    })
+    return books
   }
 
-  async create () {
-    return await insert('books', this)
+  static async readWithOwnerJoin (username, id) {
+    return await query(`
+      SELECT username, firstname, lastname, email, cellphone, profile_pic, books.*
+      FROM users
+      INNER JOIN books
+      ON books.owner_username = users.username
+      WHERE books.id = ${id}
+      AND NOT username = "${username}"
+    `)
   }
 
-  async update (id) {
-    return await updateBook(this, this.owner_username, id)
+  static async readBookOwner (id) {
+    return await query('SELECT owner_username FROM books WHERE id = ?', [id])
   }
 
-  static async delete (owner, id) {
-    return await delBook(owner, id)
+  async create () { return await insert('books', this) }
+
+  async update () { return await updateBook(this, this.owner_username, this.id) }
+
+  static async delete (id) { return await delBook(id) }
+
+  static async rent (id, consumer, date) {
+    return await query(`
+      UPDATE books
+      SET consumer_username = "${consumer}",
+          rented_date = "${date}"
+      WHERE id = ${id}
+      AND NOT owner_username = "${consumer}"
+    `)
+  }
+
+  static async return (id, consumer) {
+    return await query(`
+      UPDATE books
+      SET consumer_username = NULL,
+          rented_date = NULL
+      WHERE id = ${id}
+      AND consumer_username = "${consumer}"
+    `)
   }
 }
 

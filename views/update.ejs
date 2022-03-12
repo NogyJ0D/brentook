@@ -1,0 +1,45 @@
+<%- include('layouts/navbar.ejs', { user: user }) %>
+
+<main id="main" class="p-4 w-full">
+
+  <div class="mx-auto bg-white bg-opacity-50 px-2 py-1 text-xl rounded-xl border-2 border-black mb-4">
+
+    <div class="flex justify-between">
+      <h3 class="font-bold">Edita tu libro:</h3>
+      <form action="/books/<%= book.id %>?_method=DELETE" method="POST" class="rounded-xl border-2 border-black bg-red-500 text-xl px-2">
+        <button>Eliminar <small>(no se puede deshacer)</small></button>
+      </form>
+    </div>
+    <form class="px-6 flex flex-col gap-2" id="newBookForm" action="/books/<%= book.id %>?_method=PUT" method="POST">
+
+      <label for="title">Título*</label>
+      <input type="text" placeholder="Título" name="title" id="title" required value="<%= book.title %>">
+
+      <label for="author">Autor*</label>
+      <input type="text" placeholder="Autor" name="author" id="author" required value="<%= book.author %>">
+
+      <label for="year">Fecha de publicación*</label>
+      <input type="text" placeholder="Publicación" name="year" id="year" required value="<%= book.year %>">
+
+      <label for="publisher">Editorial*</label>
+      <input type="text" placeholder="Editorial" name="publisher" id="publisher" required value="<%= book.publisher %>">
+
+      <label for="price">Precio de alquiler ($)*</label>
+      <input type="number" min="0" placeholder="Precio de alquiler ($)" name="price" id="price" required value="<%= book.price %>">
+
+      <label for="period">Duración del alquiler*</label>
+      <input type="text" placeholder="Duración del alquiler" name="period" id="period" required value="<%= book.period %>">
+
+      <label for="category">Categoría</label>
+      <input type="text" placeholder="Categoría" name="category" id="category" value="<%= book.category %>">
+
+      <label for="cover_image">Imagen de portada (url)</label>
+      <input type="text" placeholder="Imagen de portada (url)" name="cover_image" id="cover_image" value="<%= book.cover_image %>">
+
+      <small>* requerido</small>
+      <button class="rounded-xl border-2 border-black bg-red-500 text-xl font-bold px-2">Actualizar</button>
+
+    </form>
+
+  </div>
+</main>

@@ -21,8 +21,8 @@ class User {
     return await query(`SELECT * FROM users WHERE username = "${username}"`)
   }
 
-  async login () {
-    return await query(`SELECT * FROM users WHERE email = "${this.email}" AND password = "${this.password}"`)
+  static async login (email) {
+    return await query('SELECT * FROM users WHERE email = ?', [email])
   }
 
   async create () {

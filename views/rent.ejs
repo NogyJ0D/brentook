@@ -1,0 +1,38 @@
+<%- include('layouts/navbar.ejs', { user: user }) %>
+
+<main class="p-4 grid grid-cols-2 w-full gap-8">
+
+  <div class="bg-white bg-opacity-50 px-2 py-1 text-xl rounded-xl border-2 border-black">
+    <h2 class="font-bold">El libro:</h2>
+    <div class="flex justify-evenly items-center gap-4">
+      <div class="flex flex-col gap-2 w-full">
+        <p class="input bg-white">Título: <%= book.title %></p>
+        <p class="input bg-white">Autor: <%= book.author %></p>
+        <p class="input bg-white">Publicación: <%= book.year %></p>
+        <p class="input bg-white">Editorial: <%= book.publisher %></p>
+        <p class="input bg-white">Precio: <%= book.price %>$</p>
+        <p class="input bg-white">Periodo de alquiler: <%= book.period %></p>
+        <p class="input bg-white">Categoria: <%= book.category || 'Sin especificar' %></p>
+      </div>
+      <img src="<%= book.cover_image %>" alt="<%= book.title %>" width="200" height="400" class="border-2 border-black">
+    </div>
+  </div>
+
+  <div class="bg-white bg-opacity-50 px-2 py-1 text-xl rounded-xl border-2 border-black">
+    <h2 class="font-bold">Pertenece a:</h2>
+    <div class="flex justify-evenly items-center gap-4">
+      <div class="flex flex-col gap-2 w-full">
+        <p class="input bg-white">Usuario: <%= book.username %></p>
+        <p class="input bg-white">Nombre: <%= book.firstname %> <%= book.lastname %></p>
+        <p class="input bg-white">Email: <%= book.email %></p>
+        <p class="input bg-white">Teléfono: <%= book.cellphone || 'Sin aclarar' %></p>
+      </div>
+      <img src="<%= book.profile_pic %>" alt="<%= book.username %>" width="200" height="200" class="border-2 border-black">
+    </div>
+  </div>
+
+  <form action="/books/rent/<%= book.id %>?_method=PUT" method="POST" class="text-center col-span-2 w-full p-1 h-max bg-white bg-opacity-50 text-xl rounded-xl border-2 border-black">
+    <button class="py-4 w-full text-center border-2 border-black bg-green-500 rounded-xl font-bold">Alquilar</button>
+  </form>
+
+</main>
