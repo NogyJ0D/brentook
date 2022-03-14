@@ -1,10 +1,18 @@
 <%- include('layouts/navbar.ejs', { user: user }) %>
 
-<main id="main" class="p-4 w-full gap-8">
+<main class="p-4 flex flex-col w-full gap-8">
 
+  <div class="bg-white h-max bg-opacity-50 px-2 py-1 text-xl rounded-xl border-2 border-black flex justify-around items-center">
+    <div>
+      <h2 class="input bg-white text-center font-bold"><%= ownerData.username %></h2>
+      <p class="input bg-white">Nombre: <%= ownerData.firstname %> <%= ownerData.lastname %></p>
+      <p class="input bg-white">Email: <%= ownerData.email %></p>
+      <p class="input bg-white">Teléfono: <%= ownerData.cellphone || 'Sin aclarar' %></p>
+    </div>
+    <img src="<%= ownerData.profile_pic %>" alt="<%= ownerData.username %>" width="200" height="200" class="border-2 border-black">
+  </div>
   <div class="bg-white bg-opacity-50 px-2 py-1 text-xl rounded-xl border-2 border-black">
-
-    <h3 class="font-bold">Todos los libros:</h3>
+    <h3 class="font-bold">Libros (<%= books.length %>)</h3>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 4xl:grid-cols-5 5xl:grid-cols-6 gap-3">
       <% if (books.length> 0) { %>
@@ -24,24 +32,18 @@
           <p><b>Categoría</b>: <%= book.category %></p>
           <% } %>
         </div>
-        <a class="mt-auto m-1 text-center border-2 border-black bg-sky-500 rounded-xl" href="/dashboard/search/<%= book.owner_username %>"><b>Pertenece a</b>: <%= book.owner_username %></a>
         <% if (book.owner_username !== user.username && !book.consumer_username) { %>
-        <a class="m-1 text-center border-2 border-black bg-green-500 rounded-xl" href="/dashboard/rent/<%= book.id %>">
+        <a class="mt-auto m-1 text-center border-2 border-black bg-green-500 rounded-xl" href="/dashboard/rent/<%= book.id %>">
           Alquilar
         </a>
         <% } else if (book.owner_username !== user.username && book.consumer_username) { %>
-        <h3 class="m-1 text-center border-2 border-black bg-red-500 rounded-xl">Ya está alquilado</h3>
+        <h3 class="mt-auto m-1 text-center border-2 border-black bg-red-500 rounded-xl">Ya está alquilado</h3>
         <% } else if (book.owner_username === user.username) { %>
-        <h3 class="m-1 text-center border-2 border-black bg-orange-500 rounded-xl">Mio</h3>
+        <h3 class="mt-auto m-1 text-center border-2 border-black bg-orange-500 rounded-xl">Mio</h3>
         <% } %>
       </div>
       <% })} %>
     </div>
-
   </div>
 
 </main>
-
-</body>
-
-</html>

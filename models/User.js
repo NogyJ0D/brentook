@@ -18,7 +18,19 @@ class User {
   }
 
   static async readByUsername (username) {
-    return await query(`SELECT * FROM users WHERE username = "${username}"`)
+    return await query(`
+        SELECT * 
+        FROM users 
+        WHERE username = "${username}"
+      `)
+  }
+
+  static async readByOwner (owner) {
+    return await query(`
+        SELECT username, firstname, lastname, email, cellphone, profile_pic
+        FROM users
+        WHERE username = "${owner}"
+      `)
   }
 
   static async login (email) {

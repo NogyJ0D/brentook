@@ -57,6 +57,22 @@ class UserController {
     }
   }
 
+  async getOwnerView (req, res) {
+    const { owner } = req.params
+    const ownerData = await User.readByOwner(owner)
+    const books = await Book.readByOwner(owner)
+
+    if (!ownerData[0]) {
+      req.session.fail = 'El usuario no existe.'
+      return res.status(404).redirect('/dashboard')
+    } else if (!books[0]) {
+      req.session.fail = 'El usuario no tiene libros disponibles.'
+      return res.status(404).redirect('/dashboaord')
+    } else {
+      return res.status(200).render('userbooks', { user: req.session.user, books, ownerData: ownerData[0] })
+    }
+  }
+
   async getByUsername (username) {
     return await User.readByUsername(username)
   }
