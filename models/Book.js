@@ -27,6 +27,14 @@ class Book {
     return books
   }
 
+  static async readLikeTitle (title) {
+    const books = await query(`SELECT * FROM books WHERE title LIKE "%${title}%" ORDER BY title`)
+    books.forEach(book => {
+      book.created_date = format(book.created_date, 'es-AR')
+    })
+    return books
+  }
+
   static async readLast12 () {
     const books = await query('SELECT * FROM books ORDER BY created_date DESC LIMIT 12')
     books.forEach(book => {
@@ -82,7 +90,6 @@ class Book {
       INNER JOIN books
       ON books.owner_username = users.username
       WHERE books.id = ${id}
-      AND NOT username = "${username}"
     `)
   }
 

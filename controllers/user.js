@@ -1,5 +1,6 @@
 const User = require('../models/User')
 const Book = require('../models/Book')
+const Comment = require('../models/Comment')
 
 class UserController {
   getDashboardView (req, res) {
@@ -20,7 +21,9 @@ class UserController {
   }
 
   async getSearchView (req, res) {
-    const books = await Book.readAll()
+    let books
+    if (req.body.title) books = await Book.readLikeTitle(req.body.title)
+    else books = await Book.readAll()
 
     return res.render('search', { user: req.session.user, books: books })
   }
@@ -53,7 +56,8 @@ class UserController {
       req.session.fail = 'El libro no existe.'
       return res.status(404).redirect('/dashboard')
     } else {
-      return res.status(200).render('rent', { book: book[0], user: req.session.user })
+      const comments = await Comment.readByBook(id)
+      return res.status(200).render('rent', { book: book[0], user: req.session.user, comments })
     }
   }
 

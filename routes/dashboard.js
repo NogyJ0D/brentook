@@ -10,7 +10,8 @@ const user = app => {
 
   router.get('/', isLogged, userController.getDashboardView)
   router.get('/mybooks', isLogged, userController.getMyBooksView)
-  router.get('/search', isLogged, userController.getSearchView)
+  router.get('/search/', isLogged, userController.getSearchView)
+  router.post('/search/', isLogged, userController.getSearchView)
   router.get('/search/:owner', isLogged, userController.getOwnerView)
   router.get('/update/:id', isLogged, userController.getUpdateView) // Update book page
   router.put('/update', isLogged, userController.update) // Update user post

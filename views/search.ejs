@@ -4,7 +4,13 @@
 
   <div class="bg-white bg-opacity-50 px-2 py-1 text-xl rounded-xl border-2 border-black">
 
-    <h3 class="font-bold">Todos los libros:</h3>
+    <div class="flex justify-between py-2 items-center">
+      <h3 class="font-bold">Todos los libros:</h3>
+      <form class="flex gap-2" action="/dashboard/search/" method="POST">
+        <input type="text" placeholder="Buscar por título..." name="title" required>
+        <button class="border-2 border-black rounded-xl px-2">Buscar</button>
+      </form>
+    </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 4xl:grid-cols-5 5xl:grid-cols-6 gap-3">
       <% if (books.length> 0) { %>
@@ -25,17 +31,13 @@
           <% } %>
         </div>
         <a class="mt-auto m-1 text-center border-2 border-black bg-sky-500 rounded-xl" href="/dashboard/search/<%= book.owner_username %>"><b>Pertenece a</b>: <%= book.owner_username %></a>
-        <% if (book.owner_username !== user.username && !book.consumer_username) { %>
         <a class="m-1 text-center border-2 border-black bg-green-500 rounded-xl" href="/dashboard/rent/<%= book.id %>">
-          Alquilar
+          Ir a la página
         </a>
-        <% } else if (book.owner_username !== user.username && book.consumer_username) { %>
-        <h3 class="m-1 text-center border-2 border-black bg-red-500 rounded-xl">Ya está alquilado</h3>
-        <% } else if (book.owner_username === user.username) { %>
-        <h3 class="m-1 text-center border-2 border-black bg-orange-500 rounded-xl">Mio</h3>
-        <% } %>
       </div>
-      <% })} %>
+      <% })} else { %>
+      <h2>No existen libros con ese nombre.</h2>
+      <% } %>
     </div>
 
   </div>

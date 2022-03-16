@@ -32,15 +32,9 @@
           <p><b>Categoría</b>: <%= book.category %></p>
           <% } %>
         </div>
-        <% if (book.owner_username !== user.username && !book.consumer_username) { %>
         <a class="mt-auto m-1 text-center border-2 border-black bg-green-500 rounded-xl" href="/dashboard/rent/<%= book.id %>">
-          Alquilar
+          Ir a la página
         </a>
-        <% } else if (book.owner_username !== user.username && book.consumer_username) { %>
-        <h3 class="mt-auto m-1 text-center border-2 border-black bg-red-500 rounded-xl">Ya está alquilado</h3>
-        <% } else if (book.owner_username === user.username) { %>
-        <h3 class="mt-auto m-1 text-center border-2 border-black bg-orange-500 rounded-xl">Mio</h3>
-        <% } %>
       </div>
       <% })} %>
     </div>
