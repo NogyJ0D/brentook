@@ -1,10 +1,10 @@
 <%- include('layouts/head.ejs'); %>
 
 
-<main class="relative w-full flex flex-col mx-auto py-8 gap-12">
+<main class="relative flex flex-col w-full gap-12 py-8 mx-auto">
 
   <% if (fail) { %>
-  <div class="absolute flex gap-2 items-center w-max ml-8 p-4 rounded-xl border-2 border-black bg-white bg-opacity-50">
+  <div class="absolute flex items-center gap-2 p-4 ml-8 bg-white bg-opacity-50 border-2 border-black w-max rounded-xl">
     <h3 class="font-semibold"><%= fail %></h3>
     <svg width="40" height="40" class="cursor-pointer" onclick="this.parentNode.remove()">
       <circle cx="20" cy="20" r="15" fill="#ef4444" />
@@ -13,47 +13,47 @@
   </div>
   <% } %>
 
-  <div class="text-center w-max mx-auto">
-    <h2 class="text-8xl font-black text-red-600">brentook</h2>
+  <div class="mx-auto text-center w-max">
+    <h2 class="font-black text-red-600 text-8xl">brentook</h2>
     <h4 class="text-2xl font-semibold text-red-500 text-opacity-80">Tu solución para seguir leyendo</h4>
   </div>
 
-  <div class="px-8 flex flex-col sm:flex-row gap-4 text-center">
+  <div class="flex flex-col gap-4 px-8 text-center sm:flex-row">
 
     <div class="flex flex-col gap-4">
 
       <% if (user) { %>
-      <div class="group flex border-2 w-full border-black p-6 rounded-xl bg-white bg-opacity-50">
+      <div class="flex w-full p-6 bg-white bg-opacity-50 border-2 border-black group rounded-xl">
         <img src="/svg/dashboard.svg">
 
-        <div class="flex flex-col items-center justify-center gap-4 w-full">
+        <div class="flex flex-col items-center justify-center w-full gap-4">
           <h4 class="text-xl font-semibold"><%= user.username %></h4>
-          <a href="/dashboard" class="my-auto mx-auto h-max w-max rounded-xl border-2 border-black bg-red-500 bg-opacity-50 text-xl font-bold px-2">Ir a mi dashboard</a>
+          <a href="/dashboard" class="px-2 mx-auto my-auto text-xl font-bold bg-red-500 bg-opacity-50 border-2 border-black h-max w-max rounded-xl">Ir a mi dashboard</a>
         </div>
       </div>
       <% } else { %>
-      <div class="group flex flex-col xl:flex-row items-center justify-center border-2 w-max border-black p-6 rounded-xl bg-white bg-opacity-50">
+      <div class="flex flex-col items-center justify-center p-6 bg-white bg-opacity-50 border-2 border-black group xl:flex-row w-max rounded-xl">
         <div>
-          <img src="/svg/login.svg" class="group-hover:hidden block">
-          <img src="/svg/openlogin.svg" class="group-hover:block hidden">
-          <h4 class="text-xl font-semibold pt-4">Inicia sesión</h4>
+          <img src="/svg/login.svg" class="block group-hover:hidden">
+          <img src="/svg/openlogin.svg" class="hidden group-hover:block">
+          <h4 class="pt-4 text-xl font-semibold">Inicia sesión</h4>
         </div>
 
-        <form id="loginForm" class="px-6 flex flex-col gap-4" action="/auth/login" method="post">
-          <input class="px-2 py-1 rounded border border-black outline-none" value="valentin@gmail.com" type="email" placeholder="Email" name="email" required>
-          <input class="px-2 py-1 rounded border border-black outline-none" value="valentin" type="password" placeholder="Contraseña" name="password" required>
-          <button class="rounded-xl border-2 border-black bg-red-500 bg-opacity-50 text-xl font-bold px-2 cursor-pointer">Iniciar</button>
+        <form id="loginForm" class="flex flex-col gap-4 px-6" action="/auth/login" method="post">
+          <input class="px-2 py-1 border border-black rounded outline-none" value="valentin@gmail.com" type="email" placeholder="Email" name="email" required>
+          <input class="px-2 py-1 border border-black rounded outline-none" value="valentin" type="password" placeholder="Contraseña" name="password" required>
+          <button class="px-2 text-xl font-bold bg-red-500 bg-opacity-50 border-2 border-black cursor-pointer rounded-xl">Iniciar</button>
         </form>
       </div>
       <% } %>
-      <div class="group flex flex-col xl:flex-row items-center justify-center border-2 w-max border-black p-6 rounded-xl bg-white bg-opacity-50">
+      <div class="flex flex-col items-center justify-center p-6 bg-white bg-opacity-50 border-2 border-black group xl:flex-row w-max rounded-xl">
         <div class="self-start">
-          <img src="/svg/signup.svg" class="group-hover:hidden block">
-          <img src="/svg/opensignup.svg" class="group-hover:block hidden">
-          <h4 class="text-xl font-semibold pt-4">Regístrate</h4>
+          <img src="/svg/signup.svg" class="block group-hover:hidden">
+          <img src="/svg/opensignup.svg" class="hidden group-hover:block">
+          <h4 class="pt-4 text-xl font-semibold">Regístrate</h4>
         </div>
 
-        <form id="signupForm" class="px-6 flex flex-col gap-4" action="/auth/signup" , method="post">
+        <form id="signupForm" class="flex flex-col gap-4 px-6" action="/auth/signup" , method="post">
           <input type="text" placeholder="Nombre" name="firstname" required>
           <input type="text" placeholder="Apellido" name="lastname" required>
           <input type="text" placeholder="Nombre de usuario" name="username" required>
@@ -62,19 +62,19 @@
           <input type="text" placeholder="Celular" name="cellphone">
           <input type="text" placeholder="Foto de perfil" name="profile_pic">
           <input class="w-full" type="date" placeholder="Fecha de nacimiento" name="birthday" required>
-          <button class="rounded-xl border-2 border-black bg-red-500 bg-opacity-50 text-xl font-bold px-2 cursor-pointer">Registrar</button>
+          <button class="px-2 text-xl font-bold bg-red-500 bg-opacity-50 border-2 border-black cursor-pointer rounded-xl">Registrar</button>
         </form>
       </div>
 
     </div>
 
-    <div id="booksDisplay" class="w-full border-2 border-black p-6 rounded-xl bg-white bg-opacity-50">
-      <h4 class="text-xl w-full font-semibold border-b-2 border-black">
+    <div id="booksDisplay" class="w-full p-6 bg-white bg-opacity-50 border-2 border-black rounded-xl">
+      <h4 class="w-full text-xl font-semibold border-b-2 border-black">
         Pon en alquiler los libros que ya no lees, o alquila uno de alguien mas</h4>
-      <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4 4xl:grid-cols-5 5xl:grid-cols-6 mt-2 gap-2">
+      <div class="grid grid-cols-1 gap-2 mt-2 lg:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4 4xl:grid-cols-5 5xl:grid-cols-6">
         <% books.forEach(book=> { %>
-        <div class="border-2 border-black bg-white w-48 mx-auto">
-          <img src="<%= book.cover_image %>" alt="<%= book.title %>" class="h-72 w-full">
+        <div class="w-48 mx-auto bg-white border-2 border-black">
+          <img src="<%= book.cover_image %>" alt="<%= book.title %>" class="w-full h-72">
           <div class="px-4">
             <p><b>Título</b>: <%= book.title %>
             </p>

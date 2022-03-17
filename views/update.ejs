@@ -1,16 +1,16 @@
 <%- include('layouts/navbar.ejs', { user: user }) %>
 
-<main id="main" class="p-4 w-full">
+<main id="main" class="w-full p-4">
 
-  <div class="mx-auto bg-white bg-opacity-50 px-2 py-1 text-xl rounded-xl border-2 border-black mb-4">
+  <div class="px-2 py-1 mx-auto mb-4 text-xl bg-white bg-opacity-50 border-2 border-black rounded-xl">
 
     <div class="flex justify-between">
       <h3 class="font-bold">Edita tu libro:</h3>
-      <form action="/books/<%= book.id %>?_method=DELETE" method="POST" class="rounded-xl border-2 border-black bg-red-500 text-xl px-2">
+      <form action="/books/<%= book.id %>?_method=DELETE" method="POST" class="px-2 text-xl bg-red-500 border-2 border-black rounded-xl">
         <button>Eliminar <small>(no se puede deshacer)</small></button>
       </form>
     </div>
-    <form class="px-6 flex flex-col gap-2" id="newBookForm" action="/books/<%= book.id %>?_method=PUT" method="POST">
+    <form class="flex flex-col gap-2 px-6" id="newBookForm" action="/books/<%= book.id %>?_method=PUT" method="POST">
 
       <label for="title">Título*</label>
       <input type="text" placeholder="Título" name="title" id="title" required value="<%= book.title %>">
@@ -37,7 +37,7 @@
       <input type="text" placeholder="Imagen de portada (url)" name="cover_image" id="cover_image" value="<%= book.cover_image %>">
 
       <small>* requerido</small>
-      <button class="rounded-xl border-2 border-black bg-red-500 text-xl font-bold px-2">Actualizar</button>
+      <button class="px-2 text-xl font-bold bg-red-500 border-2 border-black rounded-xl">Actualizar</button>
 
     </form>
 

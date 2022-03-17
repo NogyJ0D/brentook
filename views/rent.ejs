@@ -1,57 +1,57 @@
 <%- include('layouts/navbar.ejs', { user: user }) %>
 
-<main class="p-4 grid grid-cols-2 w-full gap-8">
+<main class="grid w-full grid-cols-2 gap-8 p-4">
 
-  <div class="bg-white bg-opacity-50 px-2 py-1 text-xl rounded-xl border-2 border-black">
+  <div class="px-2 py-1 text-xl bg-white bg-opacity-50 border-2 border-black rounded-xl">
     <h2 class="font-bold">El libro:</h2>
-    <div class="flex justify-evenly items-center gap-4">
-      <div class="flex flex-col gap-2 w-full">
-        <p class="input bg-white">Título: <%= book.title %></p>
-        <p class="input bg-white">Autor: <%= book.author %></p>
-        <p class="input bg-white">Publicación: <%= book.year %></p>
-        <p class="input bg-white">Editorial: <%= book.publisher %></p>
-        <p class="input bg-white">Precio: <%= book.price %>$</p>
-        <p class="input bg-white">Periodo de alquiler: <%= book.period %></p>
-        <p class="input bg-white">Categoria: <%= book.category || 'Sin especificar' %></p>
+    <div class="flex items-center gap-4 justify-evenly">
+      <div class="flex flex-col w-full gap-2">
+        <p class="bg-white input">Título: <%= book.title %></p>
+        <p class="bg-white input">Autor: <%= book.author %></p>
+        <p class="bg-white input">Publicación: <%= book.year %></p>
+        <p class="bg-white input">Editorial: <%= book.publisher %></p>
+        <p class="bg-white input">Precio: <%= book.price %>$</p>
+        <p class="bg-white input">Periodo de alquiler: <%= book.period %></p>
+        <p class="bg-white input">Categoria: <%= book.category || 'Sin especificar' %></p>
       </div>
       <img src="<%= book.cover_image %>" alt="<%= book.title %>" width="200" height="400" class="border-2 border-black">
     </div>
   </div>
 
-  <div class="bg-white bg-opacity-50 px-2 py-1 text-xl rounded-xl border-2 border-black">
+  <div class="px-2 py-1 text-xl bg-white bg-opacity-50 border-2 border-black rounded-xl">
     <h2 class="font-bold">Pertenece a:</h2>
-    <div class="flex justify-evenly items-center gap-4">
-      <div class="flex flex-col gap-2 w-full">
-        <p class="input bg-white">Usuario: <%= book.username %></p>
-        <p class="input bg-white">Nombre: <%= book.firstname %> <%= book.lastname %></p>
-        <p class="input bg-white">Email: <%= book.email %></p>
-        <p class="input bg-white">Teléfono: <%= book.cellphone || 'Sin aclarar' %></p>
+    <div class="flex items-center gap-4 justify-evenly">
+      <div class="flex flex-col w-full gap-2">
+        <p class="bg-white input">Usuario: <%= book.username %></p>
+        <p class="bg-white input">Nombre: <%= book.firstname %> <%= book.lastname %></p>
+        <p class="bg-white input">Email: <%= book.email %></p>
+        <p class="bg-white input">Teléfono: <%= book.cellphone || 'Sin aclarar' %></p>
       </div>
       <img src="<%= book.profile_pic %>" alt="<%= book.username %>" width="200" height="200" class="border-2 border-black">
     </div>
-    <div class="w-full px-2 flex gap-4 items-center text-xl">
+    <div class="flex items-center w-full gap-4 px-2 text-xl">
       <h3>Estado:</h3>
       <% if (book.owner_username !== user.username && !book.consumer_username) { %>
       <form action="/books/rent/<%= book.id %>?_method=PUT" method="POST" class="">
-        <button class="px-2 py-1 w-full text-center border-2 border-black bg-green-500 rounded-xl font-bold">Disponible, alquilar</button>
+        <button class="w-full px-2 py-1 font-bold text-center bg-green-500 border-2 border-black rounded-xl">Disponible, alquilar</button>
       </form>
       <% } else if (book.owner_username !== user.username && book.consumer_username) { %>
-      <h3 class="px-2 py-1 text-center font-bold border-2 border-black bg-red-500 rounded-xl">Ya está alquilado</h3>
+      <h3 class="px-2 py-1 font-bold text-center bg-red-500 border-2 border-black rounded-xl">Ya está alquilado</h3>
       <% } else if (book.owner_username === user.username) { %>
-      <h3 class="px-2 py-1 text-center border-2 border-black bg-orange-500 rounded-xl">Mio</h3>
+      <h3 class="px-2 py-1 text-center bg-orange-500 border-2 border-black rounded-xl">Mio</h3>
       <% } %>
     </div>
   </div>
 
-  <div class="bg-white bg-opacity-50 px-2 col-span-2 py-1 text-xl rounded-xl border-2 border-black">
+  <div class="col-span-2 px-2 py-1 text-xl bg-white bg-opacity-50 border-2 border-black rounded-xl">
     <h2 class="font-bold">Comentarios:</h2>
     <div class="flex flex-col gap-4">
       <form class="flex flex-col gap-2" action="/comments/create" method="POST">
-        <div class="flex justify-between items-center">
-          <input class="font-bold w-max bg-transparent outline-none" readonly required name="username" value="<%= user.username %>">
-          <button class="rounded-lg px-2 py-1 bg-sky-300 font-bold w-max border border-black">Enviar</button>
+        <div class="flex items-center justify-between">
+          <input class="font-bold bg-transparent outline-none w-max" readonly required name="username" value="<%= user.username %>">
+          <button class="px-2 py-1 font-bold border border-black rounded-lg bg-sky-300 w-max">Enviar</button>
         </div>
-        <textarea class="rounded-lg outline-none border-2 border-black px-2 py-1" name="text" maxlength="255" required></textarea>
+        <textarea class="px-2 py-1 border-2 border-black rounded-lg outline-none" name="text" maxlength="255" required></textarea>
         <input type="hidden" value="<%= book.id %>" name="book_id" required>
       </form>
       <hr class="w-full border border-black">
@@ -59,10 +59,10 @@
       <% comments.forEach(comment => { %>
       <div class="flex flex-col gap-2">
         <div class="flex gap-2">
-          <h3 class="rounded-lg font-bold border-2 border-black px-2 py-1"><%= comment.username %></h3>
-          <p class="rounded-lg font-bold border-2 border-black px-2 py-1"><%= comment.created_at %></p>
+          <h3 class="px-2 py-1 font-bold border-2 border-black rounded-lg"><%= comment.username %></h3>
+          <p class="px-2 py-1 font-bold border-2 border-black rounded-lg"><%= comment.created_at %></p>
         </div>
-        <p class="rounded-lg w-full border-2 bg-white border-black px-2 py-1"><%= comment.text %></p>
+        <p class="w-full px-2 py-1 bg-white border-2 border-black rounded-lg"><%= comment.text %></p>
       </div>
       <% }) %>
       <% } else { %>

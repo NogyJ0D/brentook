@@ -1,9 +1,9 @@
 <%- include('layouts/navbar.ejs', { user: user }) %>
 
-<main class="relative p-4 grid grid-cols-2 w-full gap-8">
+<main class="relative grid w-full grid-cols-2 gap-8 p-4">
 
   <% if (fail) { %>
-  <div class="absolute flex gap-2 items-center w-max ml-8 mt-8 p-4 rounded-xl border-2 border-black bg-orange-200">
+  <div class="absolute flex items-center gap-2 p-4 mt-8 ml-8 bg-orange-200 border-2 border-black w-max rounded-xl">
     <h3 class="font-semibold"><%= fail %></h3>
     <svg width="40" height="40" class="cursor-pointer" onclick="this.parentNode.remove()">
       <circle cx="20" cy="20" r="15" fill="#ef4444" />
@@ -12,10 +12,10 @@
   </div>
   <% } %>
 
-  <div class="bg-white bg-opacity-50 px-2 py-1 text-xl rounded-xl border-2 border-black">
+  <div class="px-2 py-1 text-xl bg-white bg-opacity-50 border-2 border-black rounded-xl">
 
     <h3 class="font-bold">Mi perfil:</h3>
-    <form class="px-6 flex flex-col gap-2" id="updateForm" action="/dashboard/update?_method=PUT" method="POST">
+    <form class="flex flex-col gap-2 px-6" id="updateForm" action="/dashboard/update?_method=PUT" method="POST">
 
       <p>Nombre de usuario:</p>
       <p class="input"><%= user.username %></p>
@@ -35,15 +35,15 @@
       <label for="profile_pic">Imagen de perfil (url) <small>(modificable)</small></label>
       <input type="text" value="<%= user.profile_pic %>" id="profile_pic" placeholder="Imagen de perfil (url)" name="profile_pic">
 
-      <button class="rounded-xl border-2 border-black bg-red-500 text-xl font-bold px-2">Actualizar</button>
+      <button class="px-2 text-xl font-bold bg-red-500 border-2 border-black rounded-xl">Actualizar</button>
 
     </form>
   </div>
 
-  <div class="bg-white bg-opacity-50 px-2 py-1 text-xl rounded-xl border-2 border-black">
+  <div class="px-2 py-1 text-xl bg-white bg-opacity-50 border-2 border-black rounded-xl">
 
     <h3 class="font-bold">Ofrecer nuevo libro:</h3>
-    <form class="px-6 flex flex-col gap-2" id="newBookForm" action="/books/create" method="POST">
+    <form class="flex flex-col gap-2 px-6" id="newBookForm" action="/books/create" method="POST">
 
       <label for="title">Título*</label>
       <input type="text" placeholder="Título" name="title" id="title" required>
@@ -69,7 +69,7 @@
       <label for="cover_image">Imagen de portada (url)</label>
       <input type="text" placeholder="Imagen de portada (url)" name="cover_image" id="cover_image">
 
-      <button class="rounded-xl border-2 border-black bg-red-500 text-xl font-bold px-2">Agregar</button>
+      <button class="px-2 text-xl font-bold bg-red-500 border-2 border-black rounded-xl">Agregar</button>
 
       <small>* requerido</small>
     </form>

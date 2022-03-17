@@ -1,15 +1,15 @@
 <%- include('layouts/navbar.ejs', { user: user }) %>
 
-<main id="main" class="p-4 grid grid-cols-2 w-full gap-8">
+<main id="main" class="grid w-full grid-cols-2 gap-8 p-4">
 
-  <div class="bg-white bg-opacity-50 px-2 py-1 text-xl rounded-xl border-2 border-black">
+  <div class="px-2 py-1 text-xl bg-white bg-opacity-50 border-2 border-black rounded-xl">
     <h3 class="font-bold">En alquiler <small>(un libro alquilado no puede editarse)</small>:</h3>
     <% if (ownedBooks.length> 0) { %>
     <div class="grid grid-cols-2 gap-4 w-fit">
       <% ownedBooks.forEach(book=> { %>
-      <div class="flex flex-col border-2 border-black bg-white w-64">
+      <div class="flex flex-col w-64 bg-white border-2 border-black">
         <img src="<%= book.cover_image %>" alt="<%= book.title %>" class="h-96">
-        <div class="px-4 flex flex-col pb-2 gap-1">
+        <div class="flex flex-col gap-1 px-4 pb-2">
           <p><b>Título</b>: <%= book.title %></p>
           <p><b>Autor</b>: <%= book.author %></p>
           <p><b>Publicación</b>: <%= book.year %></p>
@@ -26,7 +26,7 @@
         </div>
         <% } else { %>
       </div>
-      <a href="/dashboard/update/<%= book.id %>" class="mt-auto m-1 text-center border-2 border-black bg-red-500 rounded-xl">Editar/Eliminar</a>
+      <a href="/dashboard/update/<%= book.id %>" class="m-1 mt-auto text-center bg-red-500 border-2 border-black rounded-xl">Editar/Eliminar</a>
       <% } %>
     </div>
     <% }) %>
@@ -36,14 +36,14 @@
   </div>
   </div>
 
-  <div class="bg-white bg-opacity-50 px-2 py-1 text-xl rounded-xl border-2 border-black">
+  <div class="px-2 py-1 text-xl bg-white bg-opacity-50 border-2 border-black rounded-xl">
     <h3 class="font-bold">Alquilados:</h3>
     <% if (rentedBooks.length> 0) { %>
     <div class="grid grid-cols-2 gap-4 w-fit">
       <% rentedBooks.forEach(book=> { %>
-      <div class="flex flex-col border-2 border-black bg-white w-64">
+      <div class="flex flex-col w-64 bg-white border-2 border-black">
         <img src="<%= book.cover_image %>" alt="<%= book.title %>" class="h-96">
-        <div class="px-4 flex flex-col pb-2 gap-1">
+        <div class="flex flex-col gap-1 px-4 pb-2">
           <p><b>Título</b>: <%= book.title %></p>
           <p><b>Autor</b>: <%= book.author %></p>
           <p><b>Publicación</b>: <%= book.year %></p>
@@ -57,7 +57,7 @@
           <p><b>Dueño</b>: <%= book.consumer_username %></p>
           <p><b>Alquilado</b>: <%= book.rented_date %></p>
         </div>
-        <form action="/books/return/<%= book.id %>?_method=PUT" method="POST" class="mt-auto m-1 text-center border-2 border-black bg-green-500 rounded-xl">
+        <form action="/books/return/<%= book.id %>?_method=PUT" method="POST" class="m-1 mt-auto text-center bg-green-500 border-2 border-black rounded-xl">
           <button>Devolver</button>
         </form>
       </div>

@@ -1,26 +1,26 @@
 <%- include('layouts/navbar.ejs', { user: user }) %>
 
-<main class="p-4 flex flex-col w-full gap-8">
+<main class="flex flex-col w-full gap-8 p-4">
 
-  <div class="bg-white h-max bg-opacity-50 px-2 py-1 text-xl rounded-xl border-2 border-black flex justify-around items-center">
+  <div class="flex items-center justify-around px-2 py-1 text-xl bg-white bg-opacity-50 border-2 border-black h-max rounded-xl">
     <div>
-      <h2 class="input bg-white text-center font-bold"><%= ownerData.username %></h2>
-      <p class="input bg-white">Nombre: <%= ownerData.firstname %> <%= ownerData.lastname %></p>
-      <p class="input bg-white">Email: <%= ownerData.email %></p>
-      <p class="input bg-white">Teléfono: <%= ownerData.cellphone || 'Sin aclarar' %></p>
+      <h2 class="font-bold text-center bg-white input"><%= ownerData.username %></h2>
+      <p class="bg-white input">Nombre: <%= ownerData.firstname %> <%= ownerData.lastname %></p>
+      <p class="bg-white input">Email: <%= ownerData.email %></p>
+      <p class="bg-white input">Teléfono: <%= ownerData.cellphone || 'Sin aclarar' %></p>
     </div>
     <img src="<%= ownerData.profile_pic %>" alt="<%= ownerData.username %>" width="200" height="200" class="border-2 border-black">
   </div>
-  <div class="bg-white bg-opacity-50 px-2 py-1 text-xl rounded-xl border-2 border-black">
+  <div class="px-2 py-1 text-xl bg-white bg-opacity-50 border-2 border-black rounded-xl">
     <h3 class="font-bold">Libros (<%= books.length %>)</h3>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 4xl:grid-cols-5 5xl:grid-cols-6 gap-3">
+    <div class="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 4xl:grid-cols-5 5xl:grid-cols-6">
       <% if (books.length> 0) { %>
       <% books.forEach(book => { %>
 
-      <div class="flex flex-col border-2 border-black bg-white w-64">
+      <div class="flex flex-col w-64 bg-white border-2 border-black">
         <img src="<%= book.cover_image %>" alt="<%= book.title %>" class="h-96">
-        <div class="px-4 flex flex-col pb-2 gap-1">
+        <div class="flex flex-col gap-1 px-4 pb-2">
           <p><b>Título</b>: <%= book.title %></p>
           <p><b>Autor</b>: <%= book.author %></p>
           <p><b>Publicación</b>: <%= book.year %></p>
@@ -32,7 +32,7 @@
           <p><b>Categoría</b>: <%= book.category %></p>
           <% } %>
         </div>
-        <a class="mt-auto m-1 text-center border-2 border-black bg-green-500 rounded-xl" href="/dashboard/rent/<%= book.id %>">
+        <a class="m-1 mt-auto text-center bg-green-500 border-2 border-black rounded-xl" href="/dashboard/rent/<%= book.id %>">
           Ir a la página
         </a>
       </div>
