@@ -3,13 +3,14 @@ const Book = require('../models/Book')
 const Comment = require('../models/Comment')
 
 class UserController {
-  getDashboardView (req, res) {
+  async getDashboardView (req, res) {
     if (req.session.fail) {
       const fail = req.session.fail
       delete req.session.fail
       return res.render('dashboard', { user: req.session.user, fail })
     } else {
-      return res.render('dashboard', { user: req.session.user, fail: null })
+      const followings = await User.readFollowings(req.session.user.username)
+      return res.render('dashboard', { user: req.session.user, fail: null, followings })
     }
   }
 
@@ -69,11 +70,9 @@ class UserController {
     if (!ownerData[0]) {
       req.session.fail = 'El usuario no existe.'
       return res.status(404).redirect('/dashboard')
-    } else if (!books[0]) {
-      req.session.fail = 'El usuario no tiene libros disponibles.'
-      return res.status(404).redirect('/dashboaord')
     } else {
-      return res.status(200).render('userbooks', { user: req.session.user, books, ownerData: ownerData[0] })
+      const follows = await User.readFollowRelation(req.session.user.username, ownerData[0].username)
+      return res.status(200).render('userbooks', { user: req.session.user, books, ownerData: ownerData[0], follows: !!follows[0] })
     }
   }
 
@@ -98,6 +97,21 @@ class UserController {
       req.session.fail = 'Error, intentelo otra vez.'
       return res.status(403).redirect('/dashboard')
     }
+  }
+
+  async follow (req, res) {
+    const { following } = req.params
+    const follower = req.session.user.username
+    await User.follow({ follower, following })
+    return res.status(201).redirect('/dashboard')
+  }
+
+  async unfollow (req, res) {
+    const { following } = req.params
+    const follower = req.session.user.username
+
+    const relation = await User.unfollow(follower, following)
+    return res.status(200).redirect('/dashboard')
   }
 }
 

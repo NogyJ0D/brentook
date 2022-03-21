@@ -3,11 +3,16 @@
 <main class="flex flex-col w-full gap-8 p-4">
 
   <div class="flex items-center justify-around px-2 py-1 text-xl bg-white bg-opacity-50 border-2 border-black h-max rounded-xl">
-    <div>
+    <div class="flex flex-col gap-1">
       <h2 class="font-bold text-center bg-white input"><%= ownerData.username %></h2>
       <p class="bg-white input">Nombre: <%= ownerData.firstname %> <%= ownerData.lastname %></p>
       <p class="bg-white input">Email: <%= ownerData.email %></p>
       <p class="bg-white input">Teléfono: <%= ownerData.cellphone || 'Sin aclarar' %></p>
+      <% if ((user.username !== ownerData.username) && !follows) { %>
+      <a class="m-1 mt-auto text-center bg-green-500 border-2 border-black rounded-xl" href="/follow/<%= ownerData.username %>">Seguir</a>
+      <% } else if (follows) { %>
+      <p class="m-1 mt-auto text-center bg-orange-500 border-2 border-black rounded-xl">Siguiendo</p>
+      <% } %>
     </div>
     <img src="<%= ownerData.profile_pic %>" alt="<%= ownerData.username %>" width="200" height="200" class="border-2 border-black">
   </div>

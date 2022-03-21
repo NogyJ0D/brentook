@@ -75,6 +75,22 @@
     </form>
   </div>
 
+  <div class="px-2 py-1 text-xl bg-white bg-opacity-50 border-2 border-black rounded-xl">
+
+    <h3 class="font-bold">Usuarios que sigo:</h3>
+    <div class="grid grid-cols-2 gap-4 px-6">
+      <% if (followings.length > 0) { %>
+      <% followings.forEach(relation => { %>
+      <a class="px-2 py-1 mt-auto text-center bg-orange-500 border-2 border-black rounded-xl" href="/dashboard/search/<%= relation.following %>"><%= relation.following %></a>
+      <a class="px-2 py-1 mt-auto text-center bg-red-500 border-2 border-black rounded-xl" href="/follow/unfollow/<%= relation.following %>">Dejar de seguir</a>
+      <% }) %>
+      <% } else { %>
+      <p class="col-span-2 text-xl font-bold underline">No sigues a ningún usuario.</p>
+      <% } %>
+    </div>
+
+  </div>
+
 </main>
 
 </body>

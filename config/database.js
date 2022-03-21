@@ -64,4 +64,12 @@ const delBook = async (id) => {
   }
 }
 
-module.exports = { query, insert, del, update, updateBook, delBook }
+const unfollow = async (follower, following) => {
+  try {
+    return await query(`DELETE FROM follows WHERE follower = "${follower}" AND following = "${following}"`)
+  } catch (err) {
+    return err
+  }
+}
+
+module.exports = { query, insert, del, update, updateBook, delBook, unfollow }

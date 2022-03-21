@@ -16,6 +16,7 @@ const authRoutes = require('./routes/auth')
 const dashboardRoutes = require('./routes/dashboard')
 const bookRoutes = require('./routes/books')
 const commentsRoutes = require('./routes/comments')
+const followsRoutes = require('./routes/follows')
 
 // Middlewares
 app.use(express.static(path.join(__dirname, '/static')))
@@ -37,6 +38,7 @@ authRoutes(app)
 dashboardRoutes(app)
 bookRoutes(app)
 commentsRoutes(app)
+followsRoutes(app)
 
 // Start
 app.listen(port, () => {

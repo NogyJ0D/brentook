@@ -1,4 +1,4 @@
-const { query, insert, update } = require('../config/database')
+const { query, insert, update, unfollow } = require('../config/database')
 
 class User {
   constructor (user) {
@@ -43,6 +43,22 @@ class User {
 
   static async update (userData, id) {
     return await update('users', userData, id)
+  }
+
+  static async follow (data) {
+    return await insert('follows', data)
+  }
+
+  static async unfollow (follower, following) {
+    return await unfollow(follower, following)
+  }
+
+  static async readFollowings (follower) {
+    return await query(`SELECT * FROM follows WHERE follower = "${follower}"`)
+  }
+
+  static async readFollowRelation (follower, following) {
+    return await query(`SELECT * FROM follows WHERE follower = "${follower}" AND following = "${following}"`)
   }
 }
 
